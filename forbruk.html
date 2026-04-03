@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <title>Elbil forbrukskalkulator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 { text-align: center; }
+        label { display: block; margin-top: 12px; }
+        input {
+            width: 120px;
+            padding: 4px;
+            margin-left: 10px;
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f3f3f3;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Elbil forbrukskalkulator</h1>
+
+<label>Bilvekt (kg):
+    <input type="number" id="weight" value="2200">
+</label>
+
+<label>Hastighet (km/t):
+    <input type="number" id="speed" value="100">
+</label>
+
+<label>CdA (m²):
+    <input type="number" id="cdA" value="0.77" step="0.01">
+</label>
+
+<label>Lufttetthet (kg/m³):
+    <input type="number" id="airDensity" value="1.2" step="0.01">
+</label>
+
+<label>Rullemotstand (Cr):
+    <input type="number" id="rollResist" value="0.012" step="0.001">
+</label>
+
+<label>Ekstra effekt (kW):
+    <input type="number" id="auxPower" value="2" step="0.1">
+</label>
+
+<button onclick="calculate()">Beregn</button>
+
+<div id="result">Fyll inn verdier og trykk "Beregn"</div>
+
+<script>
+function calculate() {
+    const weight = parseFloat(document.getElementById('weight').value);
+    const speedKmh = parseFloat(document.getElementById('speed').value);
+    const cdA = parseFloat(document.getElementById('cdA').value);
+    const airDensity = parseFloat(document.getElementById('airDensity').value);
+    const rollResist = parseFloat(document.getElementById('rollResist').value);
+    const auxPower = parseFloat(document.getElementById('auxPower').value);
+
+    const speed = speedKmh / 3.6; // m/s
+    const g = 9.81;
+
+    const F_roll = weight * g * rollResist;
+    const F_aero = 0.5 * airDensity * cdA * speed * speed;
+
+    const totalForce = F_roll + F_aero;
+
+    const powerMotorKW = (totalForce * speed) / 1000 + auxPower;
+
+    // Energi for 10 km (1 mil)
+    const distance = 10000; // meter
+    const timeSeconds = distance / speed;
+
+    const energyKWh = powerMotorKW * (timeSeconds / 3600);
+
+    document.getElementById('result').innerHTML = `
+        <strong>Motoreffekt:</strong> ${powerMotorKW.toFixed(2)} kW<br>
+        <strong>Forbruk:</strong> ${energyKWh.toFixed(2)} kWh/mil
+    `;
+}
+</script>
+
+</body>
+</html>
