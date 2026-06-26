@@ -1,0 +1,38 @@
+/*
+ Rapportstil for cmu av <avle@ii.uib.no>.
+ arv fra andre stilark med feks denne
+   @import url(cmu.css);
+ nedenforstående vil overstyre.
+*/
+
+/* margin: top right bottom left  */
+
+BODY        {background-color:#ffffff;
+             font-family: futura, arial, verdana, helvetica, sans-serif;
+             font-size:10pt}
+
+H1          {font-size:16pt}
+H2          {font-size:14pt}
+
+H3          {font-size:12pt ; 
+             font-weight:bold}
+
+H4          {font-size:12pt}
+
+H1, H2, H3, H4 {color:blue}
+
+H1, H2, H3  {font-family: futura, arial, verdana, helvetica, sans-serif;
+             font-weight:normal}
+
+.sentrert { text-align: center ; }
+
+.figur { margin: 10 5%;
+         /* align: center ; */
+	 text-align: justify ;    
+         font-size: 10pt ;
+         font-weight: bold ;
+         font-style: italic ;
+         }
+
+.sitat { font-style: italic ;
+         margin: 0 10% ; }
